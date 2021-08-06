@@ -11,7 +11,7 @@ const usersSchema: Schema = new Schema(
   {
     nombre: { type: String },
     apellido: { type: String },
-    username: { type: String },
+    username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     moneda: { type: String },
   },

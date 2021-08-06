@@ -12,4 +12,11 @@ export class UserController {
     const response: UserModel = await userUseCase.list();
     res.status(200).json(response);
   }
+
+  async insert(req: Request, res: Response) {
+    const { nombre, apellido, username, password, moneda } = req.body;
+    const user: UserModel = { nombre, apellido, username, password, moneda };
+    const response: any = await userUseCase.insert(user);
+    res.status(200).json(response);
+  }
 }

@@ -2,17 +2,15 @@ import { UserRepository } from "./user.repository";
 import { UserModel } from "../domain/user.entity";
 
 export class UserUseCase {
-  operationsDB: UserRepository;
-
-  constructor(operationsDB: UserRepository) {
+  constructor(private operationsDB: UserRepository) {
     this.operationsDB = operationsDB;
   }
 
   async list(): Promise<UserModel> {
-    return this.operationsDB.list();
+    return await this.operationsDB.list();
   }
 
-  // insert(user: UserModel) {
-  //   this.operationsDB.insert(user);
-  // }
+  async insert(user: UserModel): Promise<string | UserModel> {
+    return await this.operationsDB.insert(user);
+  }
 }

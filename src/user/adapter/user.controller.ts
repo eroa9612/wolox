@@ -19,4 +19,10 @@ export class UserController {
     const response: any = await userUseCase.insert(user);
     res.status(200).json(response);
   }
+
+  async login(req: Request, res: Response) {
+    const { username, password } = req.body;
+    const response: string = await userUseCase.login(username, password);
+    res.status(200).json(response);
+  }
 }

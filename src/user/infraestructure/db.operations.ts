@@ -11,4 +11,9 @@ export class UserOperation implements UserRepository {
     let response = await usersSchema.create(user);
     return response;
   }
+
+  public async login(user: string, password: string) {
+    let response = await usersSchema.findOne({ username: user });
+    return response;
+  }
 }

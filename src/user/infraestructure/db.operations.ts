@@ -14,8 +14,13 @@ export class UserOperation implements UserRepository {
   }
 
   public async insert(user: UserModel) {
-    let response = await usersSchema.create(user);
-    return response;
+    const verifyUser = await usersSchema.findOne({ username: user.username });
+    if (verifyUser) {
+      return "El usuario ya se encuentra registrado";
+    } else {
+      let response = await usersSchema.create(user);
+      return response;
+    }
   }
 
   public async login(user: string, password: string) {

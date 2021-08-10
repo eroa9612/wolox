@@ -13,6 +13,12 @@ export class UserController {
     res.status(200).json(response);
   }
 
+  async listCoin(req: Request, res: Response) {
+    const currency: any = req.query.currency;
+    const response: any = await userUseCase.listCoin(currency);
+    res.status(200).json(response);
+  }
+
   async insert(req: Request, res: Response) {
     const { nombre, apellido, username, password, moneda } = req.body;
     const user: UserModel = { nombre, apellido, username, password, moneda };

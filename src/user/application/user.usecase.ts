@@ -11,6 +11,10 @@ export class UserUseCase {
     return await this.operationsDB.list();
   }
 
+  async listCoin(currency: string): Promise<any> {
+    return await this.operationsDB.listCoin(currency);
+  }
+
   async insert(user: UserModel): Promise<any> {
     //const userPwd = Object.assign({}, user);
     const verify = await UserService.validatePassowrd(user.password);

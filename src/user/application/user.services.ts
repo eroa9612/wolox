@@ -34,7 +34,7 @@ export class UserService {
       id,
       estado: 1,
       iat: moment().unix(),
-      exp: moment().add(1, "minute").unix(),
+      exp: moment().add(1, "hours").unix(),
     };
     return jwt.sign(payload, "clavesecreta");
   }

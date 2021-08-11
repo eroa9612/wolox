@@ -4,43 +4,39 @@ export class CoinService {
   static url: string = "https://api.coingecko.com/api/v3/";
   static async getCoins(currency: string): Promise<any> {
     const infoCoins: any = [];
-    const coins = await axios.get(
-      this.url + `coins/markets?vs_currency=${currency}`
-    );
-    coins.data.map((element: any) => {
-      infoCoins.push({
-        simbolo: element.symbol,
-        nombre: element.name,
-        imagen: element.image,
-        precio: element.current_price,
-        lastUpdate: element.last_updated,
+    if (currency != undefined) {
+      const coins = await axios.get(
+        this.url + `coins/markets?vs_currency=${currency}`
+      );
+      coins.data.map((element: any) => {
+        infoCoins.push({
+          simbolo: element.symbol,
+          nombre: element.name,
+          imagen: element.image,
+          precio: element.current_price,
+          lastUpdate: element.last_updated,
+        });
       });
-    });
-    return Promise.resolve(infoCoins);
+      return Promise.resolve(infoCoins);
+    } else {
+      return "Parametro currency, no encontrado";
+    }
   }
-
-  //   static async infoCoins(coins: any): Promise<any> {
-  //     let coinsData: any = [];
-  //     coins.map(async (element: any) => {
-  //       const data = await axios.get(this.url + `coins/${element.id}`);
-  //       console.log(data);
-  //       coinsData.push(data);
-  //     });
-
-  //     this.returData(coinsData.data);
-  //   }
-  //   static async returData(coins: any): Promise<any> {
-  //     console.log("entra");
-  //     let infoCoin: any = [];
-  //     coins.map(async (element: any) => {
-  //       infoCoin.push({
-  //         simbolo: element.symbol,
-  //         nombre: element.name,
-  //         imagen: element.image,
-  //         lastUpdate: element.last_updated,
-  //       });
-  //     });
-  //     console.log(infoCoin);
-  //     return infoCoin;
-  //   }
+  static async top(criptos: any): Promise<any> {
+    console.log(criptos);
+    const currency: string = "ars,usd,eur";
+    let criptomonedas: any = [];
+    criptos.cripto.forEach((element: any) => {
+      criptomonedas.push(element.nombre);
+    });
+    console.log(criptomonedas);
+    if (criptos === undefined || criptos === null) {
+      return "No tiene criptomonedas registradas";
+    } else {
+      const prices = await axios.get(
+        this.url + `simple/price?ids=bitcoin&vs_currencies=${currency}`
+      );
+      return prices.data;
+    }
+  }
 }

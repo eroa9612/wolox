@@ -11,5 +11,7 @@ router
   .post(userController.insert);
 router.route("/login").post(userController.login);
 router.route("/coins").get(auth.verifyToken, userController.listCoin);
+router.route("/top").get(auth.verifyToken, userController.topCripto);
+router.route("/cripto").post(userController.insertCripto);
 
 export default router;

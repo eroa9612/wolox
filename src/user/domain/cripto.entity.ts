@@ -1,0 +1,27 @@
+import { Schema, model } from "mongoose";
+
+export interface CriptoModel {
+  nombre: [{ cripto: string }];
+}
+
+const criptoSchema: Schema = new Schema(
+  {
+    nombre: [
+      {
+        cripto: { type: String },
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
+// usersSchema.methods.encrypPassword = async (password): Promise<string> => {
+//   const salt = await bcrypt.genSalt(10);
+//   return bcrypt.hash(password, salt);
+// };
+// usersSchema.methods.validatePassword = async function (password): Promise<boolean> {
+
+//   return await bcrypt.compare(password, this.password);
+// };
+export default model<CriptoModel>("Cripto", criptoSchema);

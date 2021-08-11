@@ -7,6 +7,7 @@ export interface UserModel {
   password: string;
   moneda: string;
 }
+
 const usersSchema: Schema = new Schema(
   {
     nombre: { type: String },
@@ -14,6 +15,7 @@ const usersSchema: Schema = new Schema(
     username: { type: String, required: true },
     password: { type: String, required: true },
     moneda: { type: String },
+    cripto: { type: Schema.Types.ObjectId, ref: "Cripto" },
   },
   {
     timestamps: true,

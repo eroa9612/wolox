@@ -12,7 +12,6 @@ export class UserService {
   }
 
   static async cryptPassword(password: string): Promise<string> {
-    console.log(password.length);
     password = await bcrypt.hash(password, 10);
     return Promise.resolve(password);
   }

@@ -15,12 +15,16 @@ export class UserOperation implements UserRepository {
   }
 
   public async topCripto(username: string): Promise<any> {
-    const user: any = await usersSchema
-      .findOne({ username: username })
-      .populate("cripto");
-    const result: any = await CoinService.top(user);
+    if (username != null) {
+      const user: any = await usersSchema
+        .findOne({ username: username })
+        .populate("cripto");
+      const result: any = await CoinService.top(user.cripto, user.moneda);
 
-    return "result";
+      return result;
+    } else {
+      return "Agregar parametros de usuario";
+    }
   }
 
   public async insert(user: UserModel) {

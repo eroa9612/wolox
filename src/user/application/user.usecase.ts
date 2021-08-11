@@ -26,7 +26,11 @@ export class UserUseCase {
       user.password = await UserService.cryptPassword(user.password);
       return await this.operationsDB.insert(user);
     } else {
-      return "La contraseña debe tener al menos 8 caracteres";
+      const result = {
+        data: "La contraseña debe tener al menos 8 caracteres",
+        status: 400,
+      };
+      return result;
     }
   }
   async insertCripto(username: any, cripto: CriptoModel): Promise<any> {
@@ -42,12 +46,15 @@ export class UserUseCase {
       );
       if (validatePwd) {
         const tokenReturn: string = await UserService.token(userData._id);
-        return tokenReturn;
+        const result = { data: tokenReturn, status: 200 };
+        return result;
       } else {
-        return "Contraseña incorrecta";
+        const result = { data: "Contraseña incorrecta", status: 400 };
+        return result;
       }
     } else {
-      return "Usuario no existe";
+      const result = { data: "Usuario no existe", status: 404 };
+      return result;
     }
   }
 }

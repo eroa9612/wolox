@@ -4,9 +4,10 @@ import { CoinService } from "./services.coin";
 import criptoSchema, { CriptoModel } from "../domain/cripto.entity";
 
 export class UserOperation implements UserRepository {
-  public async list(): Promise<UserModel> {
+  public async list(): Promise<any> {
     const result: any = await usersSchema.find();
-    return result;
+    const response = { data: result, status: 200 };
+    return response;
   }
 
   public async listCoin(currency: string): Promise<any> {
@@ -20,20 +21,25 @@ export class UserOperation implements UserRepository {
         .findOne({ username: username })
         .populate("cripto");
       const result: any = await CoinService.top(user.cripto, user.moneda);
-
       return result;
     } else {
-      return "Agregar parametros de usuario";
+      const result = { data: "Agregar parametros de usuario", status: 400 };
+      return result;
     }
   }
 
   public async insert(user: UserModel) {
     const verifyUser = await usersSchema.findOne({ username: user.username });
     if (verifyUser) {
-      return "El usuario ya se encuentra registrado";
+      const result = {
+        data: "El usuario ya se encuentra registrado",
+        status: 400,
+      };
+      return result;
     } else {
       let response = await usersSchema.create(user);
-      return response;
+      const result = { data: response, status: 200 };
+      return result;
     }
   }
 
@@ -43,7 +49,11 @@ export class UserOperation implements UserRepository {
       { username: username },
       { cripto: criptomoneda._id }
     );
-    return "Cripto monedas agregadas al usuario" + " " + username;
+    const result = {
+      data: "Cripto monedas agregadas al usuario" + " " + username,
+      status: 200,
+    };
+    return result;
   }
 
   public async login(user: string, password: string) {

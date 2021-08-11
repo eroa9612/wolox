@@ -16,12 +16,4 @@ const criptoSchema: Schema = new Schema(
     timestamps: true,
   }
 );
-// usersSchema.methods.encrypPassword = async (password): Promise<string> => {
-//   const salt = await bcrypt.genSalt(10);
-//   return bcrypt.hash(password, salt);
-// };
-// usersSchema.methods.validatePassword = async function (password): Promise<boolean> {
-
-//   return await bcrypt.compare(password, this.password);
-// };
 export default model<CriptoModel>("Cripto", criptoSchema);

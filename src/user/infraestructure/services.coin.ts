@@ -16,9 +16,14 @@ export class CoinService {
           lastUpdate: element.last_updated,
         });
       });
-      return Promise.resolve(infoCoins);
+      const response = { data: infoCoins, status: 200 };
+      return Promise.resolve(response);
     } else {
-      return "Parametro currency, no encontrado";
+      const response = {
+        data: "Parametro currency, no encontrado",
+        status: 400,
+      };
+      return response;
     }
   }
   static async top(criptos: any, moneda: string): Promise<any> {
@@ -26,7 +31,11 @@ export class CoinService {
     let criptomonedas: any = [];
     let result: any = [];
     if (criptos === undefined || criptos === null) {
-      return "No tiene criptomonedas registradas";
+      const response = {
+        data: "No tiene criptomonedas registradas",
+        status: 400,
+      };
+      return response;
     } else {
       criptos.nombre.forEach((element: any) => {
         criptomonedas.push(element.cripto);
@@ -55,7 +64,8 @@ export class CoinService {
           }
         });
       }
-      return result;
+      const response = { data: result, status: 200 };
+      return response;
     }
   }
 }

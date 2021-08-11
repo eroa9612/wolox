@@ -10,27 +10,27 @@ const userUseCase = new UserUseCase(userOperation);
 
 export class UserController {
   async list(req: Request, res: Response) {
-    const response: UserModel = await userUseCase.list();
-    res.status(200).json(response);
+    const response: any = await userUseCase.list();
+    res.status(response.status).json(response.data);
   }
 
   async listCoin(req: Request, res: Response) {
     const currency: any = req.query.currency;
     const response: any = await userUseCase.listCoin(currency);
-    res.status(200).json(response);
+    res.status(response.status).json(response.data);
   }
 
   async topCripto(req: Request, res: Response) {
     const username: any = req.query.username;
     const response: any = await userUseCase.topCripto(username);
-    res.status(200).json(response);
+    res.status(response.status).json(response.data);
   }
 
   async insert(req: Request, res: Response) {
     const { nombre, apellido, username, password, moneda } = req.body;
     const user: UserModel = { nombre, apellido, username, password, moneda };
     const response: any = await userUseCase.insert(user);
-    res.status(200).json(response);
+    res.status(response.status).json(response.data);
   }
 
   async insertCripto(req: Request, res: Response) {
@@ -38,12 +38,12 @@ export class UserController {
     console.log(criptos);
     const username = req.query.username;
     const response: any = await userUseCase.insertCripto(username, criptos);
-    res.status(200).json(response);
+    res.status(response.status).json(response.data);
   }
 
   async login(req: Request, res: Response) {
     const { username, password } = req.body;
-    const response: string = await userUseCase.login(username, password);
-    res.status(200).json(response);
+    const response: any = await userUseCase.login(username, password);
+    res.status(response.status).json(response.data);
   }
 }
